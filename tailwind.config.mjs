@@ -11,6 +11,10 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        harmattan: ["'Harmattan'", "sans-serif"], // Add Harmattan font
+        openSans: ["'Open Sans'", "sans-serif"], // Add Open Sans font
+      },
     },
   },
   plugins: [],

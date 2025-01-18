@@ -72,13 +72,13 @@ const CreateEditBlog = ({ blog, isEdit = false }) => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Title"
-          className="mb-4 p-2 border w-full px-10 py-3"
+          className="mb-7 p-2 border w-full px-10 py-3"
           required
         />
 
         {/* Tags */}
         <select
-          className="w-full border px-3 py-2 mb-4"
+          className="w-full border px-9 py-3 mb-4"
           onChange={(e) => setTags([...tags, e.target.value])}
           aria-label="Tags"
         >
@@ -98,7 +98,7 @@ const CreateEditBlog = ({ blog, isEdit = false }) => {
         </select>
 
         {/* Uploaded Images */}
-        <div className="preview-grid mt-3">
+        <div className="preview-grid px-10 mt-3">
           {previewImages.map((src, index) => (
             <div key={index} className="relative inline-block">
               <img src={src} alt={`Preview ${index + 1}`} className="w-24 h-24 object-cover rounded" />
@@ -114,7 +114,9 @@ const CreateEditBlog = ({ blog, isEdit = false }) => {
         </div>
 
         {/* New Images Upload */}
-        <input type="file" id="images" multiple onChange={handleImageChange} className="mt-4" />
+        <div className='w-full border px-10 py-3'>          
+        <input type="file" id="images" multiple onChange={handleImageChange} className="" />
+        </div>
 
         {/* Content */}
         <textarea
@@ -122,11 +124,11 @@ const CreateEditBlog = ({ blog, isEdit = false }) => {
           rows={10}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Write your story..."
-          className="mb-4 p-2 border w-full"
+          className="mb-4 px-10 py-3 border w-full mt-7"
           required
         />
 
-        <button type="submit" className="bg-blue-500 text-white p-2 w-full rounded-sm">
+        <button type="submit" className="bg-[#0086B0] text-white p-2 mt-8  w-4/12 mx-auto rounded-sm">
           {isEdit ? 'Update' : 'Publish'} Story
         </button>
       </form>

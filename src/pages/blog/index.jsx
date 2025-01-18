@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import MainLayout from '@/components/layouts/MainLayout';
 import ReactPaginate from 'react-paginate';
+import Head from 'next/head';
 
 const BlogPage = ({ posts }) => {
   const { data: session } = useSession();
@@ -52,8 +53,14 @@ const BlogPage = ({ posts }) => {
 
   return (
     <MainLayout>
-      <div className="bg-[#F5F6F8] w-full px-5 md:px-6 lg:px-7 py-4 relative mx-auto">
-        <div className="grid md:grid-cols-2 container xl:px-5 mx-auto">
+      <Head>
+        <title>Blog - PostIt</title>
+        <meta name="description" content="Discover and share stories on PostIt." />
+      </Head>
+
+      <div className="bg-[#F5F6F8]  py-4 relative mx-auto">
+        <div className='mx-auto'>
+        <div className="grid md:grid-cols-2 md:px-4 w-11/12 container mx-auto">
           <div className="flex flex-col justify-center gap-9">
             <h1 className="text-4xl md:w-[370px] font-bold">
               You’ve got a story, Post<span className="text-[#0086B0]">it</span>.
@@ -63,77 +70,87 @@ const BlogPage = ({ posts }) => {
               egestas massa velit aliquam. Molestie bibendum hnt ipsum orci, platea
               aliquam id ut.
             </p>
+            {session && (
+              <Link
+              href="/createedit"
+              className="bg-black w-[110px] md:w-[130px] justify-center font-medium text-white px-2 md:px-5 flex items-center h-9 rounded transition-transform duration-300 hover:bg-[#333] hover:scale-105"
+            >
+              Write Story
+            </Link>
+            )}
           </div>
           <div>
             <Image src="/welcome.svg" alt="welcome-img" width={800} height={800} />
           </div>
         </div>
+        </div>
       </div>
 
-      <div className="container w-full mx-auto py-16 px-3">
+      <div className="container w-11/12 mx-auto py-16 ">
         {posts.length === 0 ? (
-          <p>No blog posts found. Create one to get started!</p>
+          <p>There was an error loading the blog posts. Please try again later.</p>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {currentItems.map((post) => (
-                <Link key={post.id} href={`/blog/${post.id}`}>
-                  <div className="w-full bg-white rounded-lg p-4 sm:h-40 md:h-[540px] lg:h-[450px] xl:h-[550px] 2xl:h-[650px]">
-                    {post.images?.[0] && (
-                      <div className="relative">
-                        <img
-                          src={post.images[0]}
-                          alt={post.title}
-                          className="w-full h-[280px] object-cover mb-2 rounded"
-                        />
-                        {post.tags?.length > 0 && (
-                          <div className="absolute top-[230px] left-5 flex gap-2">
-                            {post.tags.map((tag, index) => (
-                              <p
-                                key={index}
-                                className={`text-sm font-medium px-3 py-[3px] rounded-md text-white ${getTagColor(tag)}`}
-                              >
-                                {tag}
-                              </p>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    )}
-                    <h2 className="text-[26px] font-semibold mb-2">{post.title}</h2>
-                    <div className="flex items-center gap-3 text-sm text-gray-600 mt-2">
-                      <Image
-                        src="/default-profile.png"
-                        alt="Profile Picture"
-                        width={30}
-                        height={30}
-                        className="rounded-full"
-                      />
-                      <p className="text-[#7B7B7B]">
-                        By <span className="text-black">{post.user?.username || 'Unknown'}</span>
-                      </p>
-                      <span className="text-[#7B7B7B]">-</span>
-                      <span className="text-[#7B7B7B]">
-                        {new Date(post.createdAt).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        })}
-                      </span>
-                    </div>
-                    <p className="text-[#7B7B7B] mt-2 min-h-20">{post.content.slice(0, 100)}...</p>
-                    <div className="mt-4">
-                      <Link
-                        href={`/blog/${post.id}`}
-                        className="text-[#0086B0] font-semibold flex items-center gap-2 hover:underline"
-                      >
-                        <Image src="/arrrig.svg" width={20} height={20} alt="arrow right icon" /> Read More...
-                      </Link>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:px-4 lg:mb-[170px] xl:mb-[70px] font-sans">
+  {currentItems.map((post) => (
+    <Link key={post.id} href={`/blog/${post.id}`}>
+      <div className="w-full bg-white rounded-lg py-4 sm:h-40 md:h-[540px] lg:h-[450px] xl:h-[550px] 2xl:h-[650px]">
+        {post.images?.[0] && (
+          <div className="relative">
+            <img
+              src={post.images[0]}
+              alt={post.title}
+              className="w-full h-[280px] object-cover mb-2 rounded"
+            />
+            {post.tags?.length > 0 && (
+              <div className="absolute top-[230px] left-5 flex gap-2">
+                {post.tags.map((tag, index) => (
+                  <p
+                    key={index}
+                    className={`text-sm font-medium px-3 py-[3px] rounded-md text-white ${getTagColor(tag)}`}
+                  >
+                    {tag}
+                  </p>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+        <h2 className="text-[26px] font-semibold mb-2">{post.title}</h2>
+        <div className="flex items-center gap-3 text-sm text-gray-600 mt-2">
+          <Image
+            src="/default-profile.png"
+            alt="Profile Picture"
+            width={30}
+            height={30}
+            className="rounded-full"
+          />
+          <p className="text-[#7B7B7B]">
+            By <span className="text-black">{post.user?.username || 'Unknown'}</span>
+          </p>
+          <span className="text-[#7B7B7B]">-</span>
+          <span className="text-[#7B7B7B]">
+            {new Date(post.createdAt).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </span>
+        </div>
+        <p className="text-[#7B7B7B] mt-2 min-h-20">{post.content.slice(0, 100)}...</p>
+        <div className="mt-4">
+          <Link
+            href={`/blog/${post.id}`}
+            className="text-[#0086B0] font-semibold flex items-center gap-2 hover:underline"
+          >
+            <Image src="/arrrig.svg" width={20} height={20} alt="arrow right icon" /> Read More...
+          </Link>
+        </div>
+      </div>
+    </Link>
+  ))}
+</div>
+
             <ReactPaginate
               breakLabel="..."
               nextLabel=">"
@@ -157,15 +174,6 @@ const BlogPage = ({ posts }) => {
 
 export const getServerSideProps = async (context) => {
   const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/auth/login',
-        permanent: false,
-      },
-    };
-  }
 
   try {
     const posts = await prisma.post.findMany({
