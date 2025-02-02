@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useLoading } from '../../context/LoadingContext';
 import LoadingIndicator from '../loading/LoadingIndicator';
+import { Analytics } from "@vercel/analytics/react";
 
 const MainLayout = ({
   children,
@@ -44,6 +45,7 @@ const MainLayout = ({
         {/* Conditionally render Navbar and Footer */}
         {!shouldHideLayout && <Navbar />}
         <main className="flex-1">{children}</main>
+        <Analytics />
         {!shouldHideLayout && <Footer />}
       </div>
     </>
