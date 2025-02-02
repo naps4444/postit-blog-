@@ -41,9 +41,9 @@ const Welcome = () => {
   const { data: session } = useSession();
 
   return (
-    <div className="w-11/12 px-5 container py-8 mx-auto">
+    <div className="w-11/12 md:px-5 container py-8 mx-auto">
       {/* Grid layout with custom column fractions for md+ screens */}
-      <div className="grid md:grid-cols-[2fr_3fr] items-center gap-12">
+      <div className="grid md:grid-cols-[3fr_3fr] lg:grid-cols-[2fr_3fr] items-center gap-12">
         {/* Left Content */}
         <div className="flex flex-col justify-center gap-6">
           <h1 className="text-4xl font-bold mb-6 text-gray-900">
@@ -56,7 +56,7 @@ const Welcome = () => {
           </p>
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between md:justify-start mt-6 sm:gap-6">
+          <div className="flex justify-between md:justify-start mt-6 sm:gap-6 lg:gap-10">
             {/* My Stories Link */}
             <motion.div
               initial="initial"
@@ -65,8 +65,8 @@ const Welcome = () => {
               className="rounded-md border-[1px] border-[#0086B0] overflow-hidden"
             >
               <Link
-                href="/blog"
-                className="block px-8 md:px-4 md:py-auto lg:px-10 py-3 font-semibold text-sm md:text-base text-white bg-[#0086B0] hover:text-[#0086B0] hover:bg-white focus:outline-none"
+                href="/myblog"
+                className="block px-8 md:px-4 md:py-auto lg:px-8 py-3 font-semibold text-sm md:text-base text-white bg-[#0086B0] hover:text-[#0086B0] hover:bg-white focus:outline-none"
               >
                 My Stories
               </Link>
@@ -80,8 +80,8 @@ const Welcome = () => {
               className="rounded-md border-[1px] border-[#0086B0] overflow-hidden"
             >
               <Link
-                href="/myblog"
-                className="block px-8 md:px-4 md:py-auto lg:px-10 py-3 font-semibold text-sm md:text-base text-white bg-[#0086B0] hover:text-[#0086B0] hover:bg-white focus:outline-none"
+                href="/blog"
+                className="block px-8 md:px-4 md:py-auto lg:px-8 py-3 font-semibold text-sm md:text-base text-white bg-[#0086B0] hover:text-[#0086B0] hover:bg-white focus:outline-none"
               >
                 Go to Feed
               </Link>

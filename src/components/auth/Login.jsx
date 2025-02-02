@@ -29,8 +29,8 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-[url(/authbg.svg)] text-black h-screen w-full flex justify-center items-center">
-      <div className="w-[300px] lg:w-5/12 mx-auto px-4 items-center h-[600px] md:h-screen bg-[#fdfeff8e] lg:bg-[#FDFEFF] flex justify-center flex-col relative">
+    <div className="bg-[url(/authbg.svg)] text-black h-[600px] lg:h-[770px] w-full flex justify-center items-center">
+      <div className="w-[350px] lg:w-5/12 mx-auto px-4 items-center h-[520px] md:h-[520px] lg:h-[600px] bg-[#fdfeff8e] lg:bg-[#FDFEFF] flex justify-center flex-col relative">
         <Link href="/" className="absolute top-8 right-8">
           <Image src="/xicon.svg" width={10} height={10} alt="x-icon" />
         </Link>

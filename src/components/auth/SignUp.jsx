@@ -62,8 +62,8 @@ const SignUp = () => {
   
 
   return (
-    <div className="bg-[url(/authbg.svg)] h-[800px] text-black md:h-[900px] w-full flex justify-center items-center">
-      <div className="w-[300px] lg:w-5/12 mx-auto px-4 items-center h-[700px] md:h-[850px] bg-[#fdfeff8e] lg:bg-[#FDFEFF] flex justify-center flex-col relative">
+    <div className="bg-[url(/authbg.svg)] h-[800px] text-black md:h-[800px] lg:h-[900px] w-full flex justify-center items-center">
+      <div className="w-[350px] lg:w-5/12 mx-auto px-4 items-center h-[700px] md:h-[700px] lg:h-[750px] bg-[#fdfeff8e] lg:bg-[#FDFEFF] flex justify-center flex-col relative">
         <Link href="/" className="absolute top-8 right-8">
           <Image src="/xicon.svg" width={10} height={10} alt="x-icon" />
         </Link>

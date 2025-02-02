@@ -7,13 +7,9 @@ const createedit = () => {
   return (
 
     <>
-    <Navbar/>
-    
     <div className="flex justify-center items-center py-10 mb-5 border border-t-2">
     <CreateEditBlog/>        
     </div>
-    
-    <Footer/>
     </>
   )
 }

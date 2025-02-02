@@ -1,20 +1,18 @@
-// pages/_app.js
-import { SessionProvider } from "next-auth/react";
-import "../styles/globals.css";
-import Head from "next/head";
+import { SessionProvider } from "next-auth/react"; // NextAuth Session Provider
+import { LoadingProvider } from "../context/LoadingContext"; // Loading Context
+import Layout from "../components/layouts/MainLayout"; // Layout component to manage loading
+import "../styles/globals.css"; // Global styles
 
-export default function App({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <>
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Harmattan&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-      <SessionProvider session={pageProps.session}>
-        <Component {...pageProps} />
-      </SessionProvider>
-    </>
+    <SessionProvider session={session}>
+      <LoadingProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </LoadingProvider>
+    </SessionProvider>
   );
 }
+
+export default MyApp;

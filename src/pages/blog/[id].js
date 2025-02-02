@@ -35,7 +35,7 @@ const BlogPost = ({ post }) => {
   }
 
   return (
-    <MainLayout>
+    
       <div className="w-11/12 md:px-4 mx-auto container">
         <div className="mx-auto py-10">
           {/* Tags */}
@@ -86,7 +86,7 @@ const BlogPost = ({ post }) => {
           </div>
         </div>
       </div>
-    </MainLayout>
+   
   );
 };
 

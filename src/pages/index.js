@@ -10,7 +10,7 @@ const HomePage = () => {
   
 
   return (
-    <MainLayout title="Welcome to PostIt" description="Discover amazing content on PostIt Blog">
+    
       <div className="mx-auto">
         {/* Conditionally render Hero or Welcome based on session */}
         {!session ? <Hero /> : <Welcome username={session.user.username} />}
@@ -19,7 +19,7 @@ const HomePage = () => {
         {/* Uncomment the BlogList if needed */}
         {/* <BlogList blogs={blogs} /> */}
       </div>
-    </MainLayout>
+    
   );
 };
 

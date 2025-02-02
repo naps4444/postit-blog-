@@ -8,15 +8,16 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Function to delete an image from Cloudinary
-const deleteImage = async (imageUrl) => {
+// Function to upload an image to Cloudinary
+const uploadImage = async (file) => {
   try {
-    const imagePublicId = imageUrl.split('/').pop().split('.')[0];
-    const result = await cloudinary.uploader.destroy(imagePublicId);
-    console.log('Cloudinary image deleted:', result);
+    const result = await cloudinary.uploader.upload(file, {
+      folder: 'blog-images', // Optional: Specify a folder for organization
+    });
+    return result.secure_url; // Return the uploaded image URL
   } catch (error) {
-    console.error('Error deleting image from Cloudinary:', error);
-    throw new Error('Failed to delete image from Cloudinary');
+    console.error('Error uploading image to Cloudinary:', error);
+    throw new Error('Failed to upload image');
   }
 };
 
@@ -24,15 +25,15 @@ export default async function handler(req, res) {
   const { id } = req.query;
 
   if (req.method === 'DELETE') {
+    // Existing DELETE logic
     try {
       const post = await prisma.post.findUnique({
         where: { id: Number(id) },
       });
 
       if (post?.images && post.images.length > 0) {
-        // Delete all images associated with the post from Cloudinary
         for (const imageUrl of post.images) {
-          await deleteImage(imageUrl);
+          await deleteImage(imageUrl); // Delete images from Cloudinary
         }
       }
 
@@ -49,30 +50,37 @@ export default async function handler(req, res) {
     const { title, content, tags, images } = req.body;
 
     try {
-      // Filter out undefined values and only update defined fields
-      const dataToUpdate = {};
+      const existingPost = await prisma.post.findUnique({
+        where: { id: Number(id) },
+      });
 
-      if (title !== undefined) {
-        dataToUpdate.title = title;
+      if (!existingPost) {
+        return res.status(404).json({ error: 'Post not found' });
       }
 
-      if (content !== undefined) {
-        dataToUpdate.content = content;
+      // Process new images if provided as files
+      let uploadedImages = [];
+      if (images && Array.isArray(images)) {
+        for (const image of images) {
+          if (image.startsWith('data:')) {
+            // Assuming new images are base64 strings
+            const uploadedImage = await uploadImage(image);
+            uploadedImages.push(uploadedImage);
+          } else {
+            // Keep existing image URLs
+            uploadedImages.push(image);
+          }
+        }
       }
 
-      if (tags !== undefined) {
-        dataToUpdate.tags = tags;
-      }
-
-      if (images !== undefined && images.length > 0) {
-        // Ensure images is an array with valid values
-        dataToUpdate.images = images.filter(image => image !== undefined);
-      }
-
-      // Perform the update with the filtered data
       const updatedPost = await prisma.post.update({
         where: { id: Number(id) },
-        data: dataToUpdate,
+        data: {
+          title: title || existingPost.title,
+          content: content || existingPost.content,
+          tags: tags ? tags.split(',') : existingPost.tags, // Convert tags to an array
+          images: uploadedImages.length > 0 ? uploadedImages : existingPost.images,
+        },
       });
 
       res.status(200).json(updatedPost);

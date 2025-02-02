@@ -44,7 +44,7 @@ const MyBlogs = ({ posts }) => {
   if (!isClient) return null;
 
   return (
-    <MainLayout>
+    <>
       <div className="container w-11/12 mx-auto py-10 px-6 ">
         <div className='flex justify-between items-center'>        
         <h1 className="text-xl md:text-3xl font-semibold">My Stories</h1>
@@ -57,7 +57,7 @@ const MyBlogs = ({ posts }) => {
 
         </div>
         {posts.length === 0 ? (
-          <p className='text-center'>No blog posts found. Create one to get started!</p>
+          <p className='text-center py-10'>No blog posts found. Create one to get started!</p>
         ) : (
           <div className="grid grid-cols-1 gap-2">
             {posts.map((post) => (
@@ -94,7 +94,7 @@ const MyBlogs = ({ posts }) => {
           onConfirm={handleConfirmDelete}
         />
       </div>
-    </MainLayout>
+      </>
   );
 };
 

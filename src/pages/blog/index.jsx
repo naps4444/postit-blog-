@@ -4,7 +4,6 @@ import Link from 'next/link';
 import prisma from '@/lib/prisma';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import MainLayout from '@/components/layouts/MainLayout';
 import ReactPaginate from 'react-paginate';
 import Head from 'next/head';
 
@@ -52,7 +51,7 @@ const BlogPage = ({ posts }) => {
   if (!isClient) return null;
 
   return (
-    <MainLayout>
+  <>
       <Head>
         <title>Blog - PostIt</title>
         <meta name="description" content="Discover and share stories on PostIt." />
@@ -168,7 +167,7 @@ const BlogPage = ({ posts }) => {
           </>
         )}
       </div>
-    </MainLayout>
+    </>
   );
 };
 

@@ -62,7 +62,7 @@ const Navbar = () => {
               </svg>
             </button>
 
-            <ul className="hidden md:flex md:items-center text-[18px] space-x-8 font-harmattan">
+            <ul className="hidden md:flex md:items-center text-[17px] space-x-8 font-harmattan">
               <li>
                 <Link href="/blog" className="hover:underline text-black">
                   Stories

@@ -128,9 +128,13 @@ const CreateEditBlog = ({ blog, isEdit = false }) => {
           required
         />
 
-        <button type="submit" className="bg-[#0086B0] text-white p-2 mt-8  w-4/12 mx-auto rounded-sm">
-          {isEdit ? 'Update' : 'Publish'} Story
-        </button>
+<button
+  type="submit"
+  className="bg-[#0086B0] text-white p-2 mt-8 w-5/12 md:4/12 mx-auto rounded-sm transition duration-300 ease-in-out transform hover:bg-[#006e8c] hover:scale-105"
+>
+  {isEdit ? 'Update' : 'Publish'} Story
+</button>
+
       </form>
     </div>
   );
